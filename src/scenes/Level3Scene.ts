@@ -44,10 +44,10 @@ const level3Config: LevelConfig = {
   nextScene: "VictoryScene",
   tips: [
     { x: 250, y: 385, text: "Final: misture tudo. Pegue a chave verde e cruze a plataforma verde." },
-    { x: 760, y: 388, text: "Amarelo abre o proximo trecho. Troque antes de tocar." },
+    { x: 760, y: 388, text: "Amarelo abre o próximo trecho. Troque antes de tocar." },
     { x: 1250, y: 340, text: "Suba, vire azul e pegue a chave azul." },
-    { x: 1850, y: 332, text: "Sequencia de cores: vermelho, verde, azul." },
-    { x: 2440, y: 402, text: "Inimigos finais tambem seguem a cor." }
+    { x: 1850, y: 332, text: "Sequência de cores: vermelho, verde, azul." },
+    { x: 2440, y: 402, text: "Inimigos finais também seguem a cor." }
   ]
 };
 

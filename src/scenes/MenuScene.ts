@@ -24,11 +24,11 @@ export class MenuScene extends Phaser.Scene {
       resetGame(1);
       this.scene.start("Level1Scene");
     });
-    addButton(this, 480, 338, "Instrucoes", () => this.scene.start("InstructionsScene"));
-    addButton(this, 480, 406, "Creditos", () => this.scene.start("CreditsScene"));
+    addButton(this, 480, 338, "Instruções", () => this.scene.start("InstructionsScene"));
+    addButton(this, 480, 406, "Créditos", () => this.scene.start("CreditsScene"));
 
     this.add
-      .text(480, 490, "Game Dev Cafe Game Jam 2026 - Tema: A cor e tudo", {
+      .text(480, 490, "Game Dev Café Game Jam 2026 - Tema: A cor é tudo", {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "18px",
         color: "#94a3b8"

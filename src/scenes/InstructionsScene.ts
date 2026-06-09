@@ -4,7 +4,7 @@ import { addBackdrop, addButton } from "./SceneUI";
 
 const CONTROL_LINES = [
   "A/D ou setas: mover",
-  "Espaco, W ou seta cima: pular",
+  "Espaço, W ou seta cima: pular",
   "1: vermelho   2: azul",
   "3: verde      4: amarelo",
   "R: reiniciar fase",
@@ -20,7 +20,7 @@ export class InstructionsScene extends Phaser.Scene {
     addBackdrop(this);
 
     this.add
-      .text(480, 52, "Instrucoes", {
+      .text(480, 52, "Instruções", {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "48px",
         color: "#f8fafc",
@@ -47,7 +47,7 @@ export class InstructionsScene extends Phaser.Scene {
       .text(
         480,
         154,
-        "Complete tres fases curtas alternando cores para coletar chaves, abrir portas, atravessar plataformas e derrotar inimigos.",
+        "Complete três fases curtas alternando cores para coletar chaves, abrir portas, atravessar plataformas e derrotar inimigos.",
         {
           fontFamily: "Trebuchet MS, Verdana, sans-serif",
           fontSize: "20px",
@@ -93,7 +93,7 @@ export class InstructionsScene extends Phaser.Scene {
       .text(
         665,
         304,
-        "A cor atual define quais elementos voce pode usar com seguranca. Mesma cor ajuda; cor errada geralmente custa uma vida e volta ao checkpoint.",
+        "A cor atual define quais elementos você pode usar com segurança. Mesma cor ajuda; cor errada geralmente custa uma vida e volta ao checkpoint.",
         {
           fontFamily: "Trebuchet MS, Verdana, sans-serif",
           fontSize: "18px",

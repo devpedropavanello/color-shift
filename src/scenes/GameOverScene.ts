@@ -23,7 +23,7 @@ export class GameOverScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(480, 194, `Pontuacao: ${gameState.score}`, {
+      .text(480, 194, `Pontuação: ${gameState.score}`, {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "30px",
         color: "#f8fafc"

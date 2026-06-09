@@ -174,7 +174,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     }
 
     if (this.player.y > (this.levelConfig.worldHeight ?? 660) - 18) {
-      this.damagePlayer("Voce caiu. De volta ao checkpoint.");
+      this.damagePlayer("Você caiu. De volta ao checkpoint.");
     }
   }
 
@@ -274,7 +274,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     }
 
     if (this.time.now - this.lastDoorMessageAt > 800) {
-      this.hud.showMessage(`Voce precisa da chave ${getLowerColorName(door.color)}.`, 1300, COLOR_DATA[door.color].css);
+      this.hud.showMessage(`Você precisa da chave ${getLowerColorName(door.color)}.`, 1300, COLOR_DATA[door.color].css);
       this.lastDoorMessageAt = this.time.now;
     }
 
@@ -367,7 +367,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     this.finished = true;
     addScore(300);
     this.hud.update();
-    this.hud.showMessage("Fase concluida. +300", 900, "#45d483");
+    this.hud.showMessage("Fase concluída. +300", 900, "#45d483");
     this.cameras.main.flash(260, 248, 250, 252);
 
     const body = this.player.body as Phaser.Physics.Arcade.Body;

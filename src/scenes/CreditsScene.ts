@@ -16,7 +16,7 @@ export class CreditsScene extends Phaser.Scene {
     addBackdrop(this);
 
     this.add
-      .text(480, 52, "Creditos", {
+      .text(480, 52, "Créditos", {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "48px",
         color: "#f8fafc",
@@ -67,7 +67,7 @@ export class CreditsScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(260, 336, "Game Dev Cafe Game Jam 2026", {
+      .text(260, 336, "Game Dev Café Game Jam 2026", {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "20px",
         color: "#e2e8f0",
@@ -84,7 +84,7 @@ export class CreditsScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(700, 336, "A cor e tudo", {
+      .text(700, 336, "A cor é tudo", {
         fontFamily: "Trebuchet MS, Verdana, sans-serif",
         fontSize: "20px",
         color: "#e2e8f0"
@@ -95,7 +95,7 @@ export class CreditsScene extends Phaser.Scene {
       .text(
         480,
         390,
-        "Assets: elementos visuais criados com formas geometricas via codigo usando Phaser.",
+        "Assets: elementos visuais criados com formas geométricas via código usando Phaser.",
         {
           fontFamily: "Trebuchet MS, Verdana, sans-serif",
           fontSize: "17px",

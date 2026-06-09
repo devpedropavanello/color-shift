@@ -17,8 +17,8 @@ const level1Config: LevelConfig = {
   goal: { x: 1470, y: 462 },
   nextScene: "Level2Scene",
   tips: [
-    { x: 160, y: 370, text: "A/D ou setas para mover. Espaco, W ou cima para pular." },
-    { x: 330, y: 318, text: "Chaves so entram quando voce esta na mesma cor." },
+    { x: 160, y: 370, text: "A/D ou setas para mover. Espaço, W ou cima para pular." },
+    { x: 330, y: 318, text: "Chaves só entram quando você está na mesma cor." },
     { x: 680, y: 364, text: "Portas abrem com a chave da mesma cor." },
     { x: 1040, y: 420, text: "Aperte 2 para virar azul antes da plataforma azul." }
   ]

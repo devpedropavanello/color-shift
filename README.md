@@ -1,10 +1,10 @@
 # Color Shift
 
-Color Shift e um prototipo Web 2D de plataforma, puzzle e sobrevivencia por cor criado para a **Game Dev Cafe Game Jam 2026**.
+Color Shift é um protótipo Web 2D de plataforma, puzzle e sobrevivência por cor criado para a **Game Dev Café Game Jam 2026**.
 
-Tema da Jam: **"A cor e tudo"**.
+Tema da Jam: **"A cor é tudo"**.
 
-No jogo, a cor nao e apenas estetica: ela define as regras. O jogador alterna entre vermelho, azul, verde e amarelo para coletar chaves, abrir portas, atravessar plataformas coloridas e derrotar inimigos da mesma cor.
+No jogo, a cor não é apenas estética: ela define as regras. O jogador alterna entre vermelho, azul, verde e amarelo para coletar chaves, abrir portas, atravessar plataformas coloridas e derrotar inimigos da mesma cor.
 
 ## Tecnologia
 
@@ -12,13 +12,13 @@ No jogo, a cor nao e apenas estetica: ela define as regras. O jogador alterna en
 - TypeScript
 - Vite
 - HTML/CSS
-- Build Web estatica para Itch.io
+- Build Web estática para Itch.io
 - Sem backend
 
 ## Controles
 
 - A/D ou setas: mover
-- Espaco, W ou seta para cima: pular
+- Espaço, W ou seta para cima: pular
 - 1: vermelho
 - 2: azul
 - 3: verde
@@ -39,6 +39,6 @@ npm run dev
 - Bryan Brum Paz
 - Gustavo Mautoni
 
-## Creditos
+## Créditos
 
-Os elementos visuais principais foram criados com formas geometricas via codigo usando Phaser.
+Os elementos visuais principais foram criados com formas geométricas via código usando Phaser.

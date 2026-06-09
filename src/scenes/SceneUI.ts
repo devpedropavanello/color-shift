@@ -36,7 +36,7 @@ export function addTitle(scene: Phaser.Scene, y = 88): void {
     .setOrigin(0.5);
 
   scene.add
-    .text(480, y + 58, "A cor e a regra do mundo", {
+    .text(480, y + 58, "A cor é a regra do mundo", {
       fontFamily: "Trebuchet MS, Verdana, sans-serif",
       fontSize: "22px",
       color: "#cbd5e1",

@@ -30,7 +30,7 @@ const level2Config: LevelConfig = {
     { x: 205, y: 386, text: "A fase agora pede ordem: cor certa, chave certa, porta certa." },
     { x: 430, y: 316, text: "Aperte 2 para usar azul e pegar a chave azul." },
     { x: 1150, y: 356, text: "Inimigo azul: toque nele estando azul para derrotar." },
-    { x: 1510, y: 398, text: "Depois da porta vermelha, siga ate o objetivo." }
+    { x: 1510, y: 398, text: "Depois da porta vermelha, siga até o objetivo." }
   ]
 };
 
