@@ -14,6 +14,9 @@ import { ColorEnemy } from "../objects/ColorEnemy";
 import { ColorKey } from "../objects/ColorKey";
 import { HUD } from "../objects/HUD";
 import { Player } from "../objects/Player";
+import { createColorBurst, createFloatingText, createSmallCameraShake, pulseObject } from "../theme/effects";
+import { PALETTE } from "../theme/palette";
+import { createNeonBackground, FONT_FAMILY } from "../theme/visualStyle";
 
 interface RectDef {
   x: number;
@@ -179,31 +182,23 @@ export abstract class BaseLevelScene extends Phaser.Scene {
   }
 
   private createBackground(worldWidth: number): void {
-    this.add.rectangle(worldWidth / 2, 270, worldWidth, 540, 0x0b1020).setDepth(-10);
-    const graphics = this.add.graphics().setDepth(-9);
-
-    graphics.fillStyle(0xf94144, 0.08);
-    graphics.fillCircle(160, 118, 118);
-    graphics.fillStyle(0x277dff, 0.08);
-    graphics.fillCircle(worldWidth - 210, 115, 150);
-    graphics.fillStyle(0x45d483, 0.07);
-    graphics.fillCircle(worldWidth * 0.54, 455, 140);
-    graphics.fillStyle(0xf9d94a, 0.07);
-    graphics.fillCircle(worldWidth * 0.28, 410, 100);
-
-    for (let x = 0; x <= worldWidth; x += 64) {
-      graphics.lineStyle(1, 0xffffff, x % 128 === 0 ? 0.06 : 0.025);
-      graphics.lineBetween(x, 0, x, 540);
-    }
-    for (let y = 0; y <= 540; y += 64) {
-      graphics.lineStyle(1, 0xffffff, y % 128 === 0 ? 0.06 : 0.025);
-      graphics.lineBetween(0, y, worldWidth, y);
-    }
+    createNeonBackground(this, worldWidth, 540);
   }
 
   private addPlatform(def: RectDef): void {
-    const platform = this.add.rectangle(def.x, def.y, def.width, def.height, 0x536176, 1).setDepth(1);
-    platform.setStrokeStyle(2, 0x111827, 0.9);
+    this.add.rectangle(def.x + 4, def.y + 8, def.width, def.height, PALETTE.black, 0.38).setDepth(0);
+
+    const platform = this.add.rectangle(def.x, def.y, def.width, def.height, PALETTE.platform, 1).setDepth(1);
+    platform.setStrokeStyle(2, PALETTE.outline, 0.35);
+
+    this.add
+      .rectangle(def.x, def.y - def.height / 2 + 4, Math.max(12, def.width - 10), 4, PALETTE.outline, 0.28)
+      .setDepth(2);
+
+    for (let x = def.x - def.width / 2 + 48; x < def.x + def.width / 2; x += 48) {
+      this.add.rectangle(x, def.y + 2, 2, Math.max(4, def.height - 8), PALETTE.black, 0.18).setDepth(2);
+    }
+
     this.physics.add.existing(platform, true);
     const body = platform.body as Phaser.Physics.Arcade.StaticBody;
     body.setSize(def.width, def.height);
@@ -213,9 +208,25 @@ export abstract class BaseLevelScene extends Phaser.Scene {
 
   private addColorPlatform(def: ColoredRectDef): void {
     const colorData = COLOR_DATA[def.color];
-    const platform = this.add.rectangle(def.x, def.y, def.width, def.height, colorData.hex, 0.92).setDepth(2);
+
+    this.add
+      .rectangle(def.x, def.y + 2, def.width + 22, def.height + 18, colorData.hex, 0.16)
+      .setDepth(1)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    this.add.rectangle(def.x + 4, def.y + 9, def.width, def.height, PALETTE.black, 0.42).setDepth(1);
+
+    const platform = this.add.rectangle(def.x, def.y, def.width, def.height, colorData.hex, 0.96).setDepth(2);
     platform.setData("color", def.color);
-    platform.setStrokeStyle(3, 0xffffff, 0.78);
+    platform.setStrokeStyle(3, PALETTE.outline, 0.82);
+
+    this.add
+      .rectangle(def.x, def.y - def.height / 2 + 4, Math.max(12, def.width - 10), 4, PALETTE.white, 0.35)
+      .setDepth(3);
+
+    for (let x = def.x - def.width / 2 + 42; x < def.x + def.width / 2; x += 42) {
+      this.add.rectangle(x, def.y + 2, 2, Math.max(4, def.height - 8), colorData.darkHex, 0.42).setDepth(3);
+    }
+
     this.physics.add.existing(platform, true);
     const body = platform.body as Phaser.Physics.Arcade.StaticBody;
     body.setSize(def.width, def.height);
@@ -224,8 +235,9 @@ export abstract class BaseLevelScene extends Phaser.Scene {
 
     this.add
       .text(def.x, def.y - def.height / 2 - 24, getColorName(def.color), {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
+        fontFamily: FONT_FAMILY,
         fontSize: "16px",
+        fontStyle: "700",
         color: colorData.css,
         stroke: "#05070d",
         strokeThickness: 4
@@ -238,8 +250,9 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     for (const tip of tips) {
       this.add
         .text(tip.x, tip.y, tip.text, {
-          fontFamily: "Trebuchet MS, Verdana, sans-serif",
+          fontFamily: FONT_FAMILY,
           fontSize: "18px",
+          fontStyle: "700",
           color: "#e2e8f0",
           stroke: "#05070d",
           strokeThickness: 4,
@@ -269,11 +282,13 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     if (hasKey(door.color)) {
       door.open();
       this.createBurst(door.x, door.y, door.color);
+      createFloatingText(this, door.x, door.y - 52, "ABERTA", COLOR_DATA[door.color].css);
       this.hud.showMessage(`Porta ${getLowerColorName(door.color)} aberta.`, 1300, COLOR_DATA[door.color].css);
       return false;
     }
 
     if (this.time.now - this.lastDoorMessageAt > 800) {
+      pulseObject(this, door, 1.08);
       this.hud.showMessage(`Você precisa da chave ${getLowerColorName(door.color)}.`, 1300, COLOR_DATA[door.color].css);
       this.lastDoorMessageAt = this.time.now;
     }
@@ -302,6 +317,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     addScore(100);
     key.collect();
     this.createBurst(key.x, key.y, key.color);
+    createFloatingText(this, key.x, key.y - 18, "+100", COLOR_DATA[key.color].css);
     this.hud.update();
     this.hud.showMessage(`Chave ${getLowerColorName(key.color)} coletada. +100`, 1300, COLOR_DATA[key.color].css);
   }
@@ -314,6 +330,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     if (enemy.color === this.player.currentColor) {
       addScore(150);
       this.createBurst(enemy.x, enemy.y, enemy.color);
+      createFloatingText(this, enemy.x, enemy.y - 24, "+150", COLOR_DATA[enemy.color].css);
       enemy.defeat();
       this.hud.update();
       this.hud.showMessage(`Inimigo ${getLowerColorName(enemy.color)} derrotado. +150`, 1300, COLOR_DATA[enemy.color].css);
@@ -331,7 +348,7 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     checkpoint.activate();
     setCheckpoint(checkpoint.x, checkpoint.y);
     this.createBurst(checkpoint.x, checkpoint.y, "yellow");
-    this.hud.showMessage("Checkpoint ativado.", 1300, "#f9d94a");
+    this.hud.showMessage("Checkpoint ativado.", 1300, "#FFD43B");
   }
 
   private damagePlayer(message: string): void {
@@ -343,15 +360,15 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     gameState.lives -= 1;
     this.hud.update();
     this.player.flashDamage();
-    this.cameras.main.shake(180, 0.008);
+    createSmallCameraShake(this);
 
     if (gameState.lives <= 0) {
-      this.hud.showMessage("Sem vidas. Fim de jogo.", 900, "#f94144");
+      this.hud.showMessage("Sem vidas. Fim de jogo.", 900, "#FF304F");
       this.time.delayedCall(520, () => this.scene.start("GameOverScene"));
       return;
     }
 
-    this.hud.showMessage(message, 1300, "#f94144");
+    this.hud.showMessage(message, 1300, "#FF304F");
     this.player.respawn(gameState.checkpointX, gameState.checkpointY);
 
     this.time.delayedCall(900, () => {
@@ -367,7 +384,8 @@ export abstract class BaseLevelScene extends Phaser.Scene {
     this.finished = true;
     addScore(300);
     this.hud.update();
-    this.hud.showMessage("Fase concluída. +300", 900, "#45d483");
+    createFloatingText(this, this.player.x, this.player.y - 48, "+300", "#32E875");
+    this.hud.showMessage("Fase concluída. +300", 900, "#32E875");
     this.cameras.main.flash(260, 248, 250, 252);
 
     const body = this.player.body as Phaser.Physics.Arcade.Body;
@@ -380,21 +398,6 @@ export abstract class BaseLevelScene extends Phaser.Scene {
   }
 
   private createBurst(x: number, y: number, color: PlayerColor): void {
-    const hex = COLOR_DATA[color].hex;
-    for (let i = 0; i < 12; i += 1) {
-      const angle = (Math.PI * 2 * i) / 12;
-      const distance = Phaser.Math.Between(20, 46);
-      const spark = this.add.circle(x, y, 4, hex, 0.95).setDepth(20);
-      this.tweens.add({
-        targets: spark,
-        x: x + Math.cos(angle) * distance,
-        y: y + Math.sin(angle) * distance,
-        alpha: 0,
-        scale: 0.2,
-        duration: 340,
-        ease: "Sine.Out",
-        onComplete: () => spark.destroy()
-      });
-    }
+    createColorBurst(this, x, y, color, 14, 48);
   }
 }

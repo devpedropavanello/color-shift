@@ -23,7 +23,8 @@ export class ColorEnemy extends Phaser.Physics.Arcade.Sprite {
     const body = this.body as Phaser.Physics.Arcade.Body;
     body.setAllowGravity(false);
     body.setImmovable(true);
-    body.setCircle(14, 2, 2);
+    body.setSize(34, 30);
+    body.setOffset(5, 8);
     body.setVelocityX(this.speed);
   }
 

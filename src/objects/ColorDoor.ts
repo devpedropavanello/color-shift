@@ -16,8 +16,8 @@ export class ColorDoor extends Phaser.Physics.Arcade.Sprite {
 
     this.setDepth(5);
     const body = this.body as Phaser.Physics.Arcade.StaticBody;
-    body.setSize(42, 82);
-    body.setOffset(3, 0);
+    body.setSize(48, 88);
+    body.setOffset(8, 8);
     body.updateFromGameObject();
   }
 
@@ -27,6 +27,14 @@ export class ColorDoor extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.isOpen = true;
+    this.scene.tweens.add({
+      targets: this,
+      scaleX: 1.12,
+      scaleY: 0.92,
+      yoyo: true,
+      duration: 90,
+      ease: "Sine.Out"
+    });
     this.scene.tweens.add({
       targets: this,
       y: this.y - 40,

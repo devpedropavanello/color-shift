@@ -1,3 +1,5 @@
+import { COLOR_CSS, COLOR_DARK_HEX, COLOR_HEX } from "../theme/palette";
+
 export type PlayerColor = "red" | "blue" | "green" | "yellow";
 
 export interface ColorDefinition {
@@ -14,30 +16,30 @@ export const COLOR_DATA: Record<PlayerColor, ColorDefinition> = {
   red: {
     key: "red",
     name: "Vermelho",
-    hex: 0xf94144,
-    darkHex: 0x8a1c23,
-    css: "#f94144"
+    hex: COLOR_HEX.red,
+    darkHex: COLOR_DARK_HEX.red,
+    css: COLOR_CSS.red
   },
   blue: {
     key: "blue",
     name: "Azul",
-    hex: 0x277dff,
-    darkHex: 0x164a96,
-    css: "#277dff"
+    hex: COLOR_HEX.blue,
+    darkHex: COLOR_DARK_HEX.blue,
+    css: COLOR_CSS.blue
   },
   green: {
     key: "green",
     name: "Verde",
-    hex: 0x45d483,
-    darkHex: 0x1e7a49,
-    css: "#45d483"
+    hex: COLOR_HEX.green,
+    darkHex: COLOR_DARK_HEX.green,
+    css: COLOR_CSS.green
   },
   yellow: {
     key: "yellow",
     name: "Amarelo",
-    hex: 0xf9d94a,
-    darkHex: 0x9c7b16,
-    css: "#f9d94a"
+    hex: COLOR_HEX.yellow,
+    darkHex: COLOR_DARK_HEX.yellow,
+    css: COLOR_CSS.yellow
   }
 };
 

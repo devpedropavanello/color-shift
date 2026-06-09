@@ -1,12 +1,12 @@
 import Phaser from "phaser";
 import { resetGame } from "../data/gameState";
+import { COLOR_CSS, COLOR_HEX, PALETTE, type NeonColorName } from "../theme/palette";
+import { addNeonPanel, addScreenTitle, FONT_FAMILY } from "../theme/visualStyle";
 import { addBackdrop, addButton } from "./SceneUI";
 
 const CONTROL_LINES = [
   "A/D ou setas: mover",
   "Espaço, W ou seta cima: pular",
-  "1: vermelho   2: azul",
-  "3: verde      4: amarelo",
   "R: reiniciar fase",
   "ESC: voltar ao menu"
 ];
@@ -18,98 +18,95 @@ export class InstructionsScene extends Phaser.Scene {
 
   create(): void {
     addBackdrop(this);
+    addScreenTitle(this, 54, "Instruções", "#F5F7FF");
+
+    addNeonPanel(this, 480, 264, 820, 350, 24);
 
     this.add
-      .text(480, 52, "Instruções", {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
-        fontSize: "48px",
-        color: "#f8fafc",
-        stroke: "#05070d",
-        strokeThickness: 6
-      })
-      .setOrigin(0.5);
-
-    this.add
-      .rectangle(480, 262, 800, 326, 0x111827, 0.82)
-      .setStrokeStyle(2, 0xf8fafc, 0.12);
-
-    this.add
-      .text(480, 118, "Objetivo", {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
-        fontSize: "24px",
-        color: "#f9d94a",
+      .text(166, 126, "OBJETIVO", {
+        fontFamily: FONT_FAMILY,
+        fontSize: "22px",
+        fontStyle: "900",
+        color: "#FFD43B",
         stroke: "#05070d",
         strokeThickness: 4
       })
-      .setOrigin(0.5);
+      .setDepth(30);
 
     this.add
       .text(
-        480,
-        154,
+        166,
+        164,
         "Complete três fases curtas alternando cores para coletar chaves, abrir portas, atravessar plataformas e derrotar inimigos.",
         {
-          fontFamily: "Trebuchet MS, Verdana, sans-serif",
-          fontSize: "20px",
-          color: "#e2e8f0",
-          align: "center",
-          wordWrap: { width: 680 }
+          fontFamily: FONT_FAMILY,
+          fontSize: "19px",
+          fontStyle: "600",
+          color: "#F5F7FF",
+          lineSpacing: 5,
+          wordWrap: { width: 650 }
         }
       )
-      .setOrigin(0.5, 0);
+      .setDepth(30);
 
-    const graphics = this.add.graphics();
-    graphics.lineStyle(1, 0xffffff, 0.16);
-    graphics.lineBetween(140, 222, 820, 222);
-    graphics.lineBetween(480, 242, 480, 402);
+    this.add.rectangle(480, 230, 680, 1, PALETTE.outline, 0.14).setDepth(30);
+    this.add.rectangle(480, 324, 1, 126, PALETTE.outline, 0.14).setDepth(30);
 
     this.add
-      .text(180, 252, "Controles", {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
+      .text(166, 260, "CONTROLES", {
+        fontFamily: FONT_FAMILY,
         fontSize: "21px",
-        color: "#45d483"
+        fontStyle: "900",
+        color: "#32E875"
       })
-      .setOrigin(0, 0.5);
+      .setDepth(30);
 
     this.add
-      .text(180, 294, CONTROL_LINES, {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
+      .text(166, 296, CONTROL_LINES, {
+        fontFamily: FONT_FAMILY,
         fontSize: "17px",
-        color: "#e2e8f0",
-        align: "left",
-        lineSpacing: 3
+        fontStyle: "700",
+        color: "#E2E8F0",
+        lineSpacing: 8
       })
-      .setOrigin(0, 0);
+      .setDepth(30);
 
     this.add
-      .text(665, 252, "Regra principal", {
-        fontFamily: "Trebuchet MS, Verdana, sans-serif",
+      .text(575, 260, "REGRA PRINCIPAL", {
+        fontFamily: FONT_FAMILY,
         fontSize: "21px",
-        color: "#277dff"
+        fontStyle: "900",
+        color: "#2F80FF"
       })
-      .setOrigin(0.5);
+      .setDepth(30);
 
     this.add
       .text(
-        665,
-        304,
-        "A cor atual define quais elementos você pode usar com segurança. Mesma cor ajuda; cor errada geralmente custa uma vida e volta ao checkpoint.",
+        575,
+        296,
+        "A cor atual define o que você pode usar. Mesma cor ajuda. Cor errada geralmente custa uma vida e volta ao checkpoint.",
         {
-          fontFamily: "Trebuchet MS, Verdana, sans-serif",
+          fontFamily: FONT_FAMILY,
           fontSize: "18px",
-          color: "#e2e8f0",
-          align: "center",
-          lineSpacing: 5,
-          wordWrap: { width: 340 }
+          fontStyle: "700",
+          color: "#E2E8F0",
+          lineSpacing: 6,
+          wordWrap: { width: 310 }
         }
       )
-      .setOrigin(0.5, 0);
+      .setDepth(30);
 
-    addButton(this, 350, 478, "Jogar", () => {
+    this.add.rectangle(480, 392, 680, 1, PALETTE.outline, 0.12).setDepth(30);
+    this.addColorChip(252, 416, "1 Vermelho", "red");
+    this.addColorChip(404, 416, "2 Azul", "blue");
+    this.addColorChip(556, 416, "3 Verde", "green");
+    this.addColorChip(708, 416, "4 Amarelo", "yellow");
+
+    addButton(this, 350, 494, "Jogar", () => {
       resetGame(1);
       this.scene.start("Level1Scene");
     });
-    addButton(this, 610, 478, "Menu", () => this.scene.start("MenuScene"));
+    addButton(this, 610, 494, "Menu", () => this.scene.start("MenuScene"));
 
     const keyboard = this.input.keyboard!;
     keyboard.once("keydown-ENTER", () => {
@@ -117,5 +114,19 @@ export class InstructionsScene extends Phaser.Scene {
       this.scene.start("Level1Scene");
     });
     keyboard.once("keydown-ESC", () => this.scene.start("MenuScene"));
+  }
+
+  private addColorChip(x: number, y: number, label: string, color: NeonColorName): void {
+    this.add.rectangle(x, y, 132, 34, COLOR_HEX[color], 0.16).setDepth(30);
+    this.add.rectangle(x, y, 124, 28, PALETTE.panel, 0.92).setStrokeStyle(2, COLOR_HEX[color], 0.8).setDepth(31);
+    this.add
+      .text(x, y, label, {
+        fontFamily: FONT_FAMILY,
+        fontSize: "15px",
+        fontStyle: "900",
+        color: COLOR_CSS[color]
+      })
+      .setOrigin(0.5)
+      .setDepth(32);
   }
 }

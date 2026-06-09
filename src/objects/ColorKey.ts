@@ -16,12 +16,13 @@ export class ColorKey extends Phaser.Physics.Arcade.Sprite {
     const body = this.body as Phaser.Physics.Arcade.Body;
     body.setAllowGravity(false);
     body.setImmovable(true);
-    body.setSize(28, 28);
-    body.setOffset(2, 2);
+    body.setSize(34, 34);
+    body.setOffset(11, 10);
 
     scene.tweens.add({
       targets: this,
       y: y - 8,
+      angle: 6,
       yoyo: true,
       repeat: -1,
       duration: 900,

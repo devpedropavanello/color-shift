@@ -1,6 +1,7 @@
 import Phaser from "phaser";
-import { COLOR_DATA, type PlayerColor } from "../data/colors";
+import type { PlayerColor } from "../data/colors";
 import { gameState, setPlayerColor } from "../data/gameState";
+import { createColorBurst } from "../theme/effects";
 
 type PlayerKeyMap = Record<"left" | "right" | "up" | "jump" | "red" | "blue" | "green" | "yellow", Phaser.Input.Keyboard.Key>;
 
@@ -25,8 +26,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setDragX(1200);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
-    body.setSize(28, 30);
-    body.setOffset(2, 2);
+    body.setSize(30, 40);
+    body.setOffset(7, 10);
     body.setMaxVelocity(260, 620);
 
     this.cursors = scene.input.keyboard!.createCursorKeys();
@@ -113,7 +114,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.currentColor = color;
     setPlayerColor(color);
     this.setTexture(`player-${color}`);
-    this.createShiftBurst(color);
+    createColorBurst(this.scene, this.x, this.y, color, 16, 54);
     this.scene.tweens.add({
       targets: this,
       scale: 1.18,
@@ -122,22 +123,5 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       ease: "Sine.Out"
     });
     this.onColorChanged(color);
-  }
-
-  private createShiftBurst(color: PlayerColor): void {
-    const hex = COLOR_DATA[color].hex;
-    for (let i = 0; i < 10; i += 1) {
-      const angle = (Math.PI * 2 * i) / 10;
-      const spark = this.scene.add.circle(this.x, this.y, 3, hex, 0.9).setDepth(9);
-      this.scene.tweens.add({
-        targets: spark,
-        x: this.x + Math.cos(angle) * 34,
-        y: this.y + Math.sin(angle) * 28,
-        alpha: 0,
-        duration: 260,
-        ease: "Sine.Out",
-        onComplete: () => spark.destroy()
-      });
-    }
   }
 }

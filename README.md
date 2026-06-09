@@ -15,6 +15,12 @@ No jogo, a cor não é apenas estética: ela define as regras. O jogador alterna
 - Build Web estática para Itch.io
 - Sem backend
 
+## Visual
+
+O visual usa uma direção neon futurista inspirada em uma imagem de conceito, mas todos os elementos do jogo foram desenhados via código com Phaser.
+
+A imagem de conceito não foi incluída como asset, textura, sprite ou background.
+
 ## Controles
 
 - A/D ou setas: mover
@@ -33,6 +39,29 @@ npm install
 npm run dev
 ```
 
+## Como gerar build
+
+```bash
+npm run build
+```
+
+O Vite gera a pasta `dist`. O projeto usa `base: './'` em `vite.config.ts`, então a build está preparada para hospedagem estática.
+
+## Como visualizar a build
+
+```bash
+npm run preview
+```
+
+## Publicação no Itch.io
+
+1. Rode `npm run build`.
+2. Compacte o conteúdo da pasta `dist`.
+3. Crie a página do jogo no Itch.io.
+4. Envie o `.zip`.
+5. Marque o projeto como HTML/Web.
+6. Inclua os controles e os créditos na descrição da página.
+
 ## Integrantes
 
 - Pedro Henrique Guimarães Pavanello
@@ -42,3 +71,5 @@ npm run dev
 ## Créditos
 
 Os elementos visuais principais foram criados com formas geométricas via código usando Phaser.
+
+Nenhum asset gerado por IA foi utilizado no jogo.
