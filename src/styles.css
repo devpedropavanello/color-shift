@@ -1,0 +1,30 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(249, 65, 68, 0.22), transparent 28%),
+    radial-gradient(circle at 80% 25%, rgba(39, 125, 255, 0.22), transparent 30%),
+    linear-gradient(135deg, #080a12 0%, #111827 55%, #05070d 100%);
+  color: #f8fafc;
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  overflow: hidden;
+}
+
+#app {
+  display: grid;
+  place-items: center;
+}
+
+#game-container {
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
+  line-height: 0;
+}
+
+canvas {
+  display: block;
+}
